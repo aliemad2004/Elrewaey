@@ -817,3 +817,355 @@ body {
     justify-content: center;
   }
 }
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #2c3e50;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #34495e;
+}
+
+/* Smooth Scroll */
+html {
+  scroll-behavior: smooth;
+}
+
+/* RTL-specific adjustments */
+.space-x-reverse > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-x-reverse: 1;
+}
+
+/* CSS Variables */
+:root {
+  --primary: #2c1810;
+  --primary-light: #3d2317;
+  --secondary: #8b4513;
+  --secondary-light: #a0522d;
+  --neutral-light: #f5f5f5;
+  --accent: #d4a373;
+  --accent-light: #e6c4a8;
+  --dark-gray: #424242;
+  --light-gray: #e0e0e0;
+  --white: #ffffff;
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+  --transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --container-width: 1200px;
+  --header-height: 80px;
+  --section-padding: 5rem;
+  --border-radius: 0.5rem;
+}
+
+/* Reset & Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  transition: var(--transition);
+}
+
+body {
+  font-family: "Tajawal", sans-serif;
+  background-color: var(--white);
+  color: var(--primary);
+  line-height: 1.6;
+  font-size: 16px;
+}
+
+.container {
+  width: 100%;
+  max-width: var(--container-width);
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* Navigation Styles */
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: var(--header-height);
+  background-color: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(5px);
+  box-shadow: var(--shadow-md);
+  z-index: 1000;
+  transition: var(--transition);
+}
+
+.nav.scrolled {
+  height: calc(var(--header-height) - 20px);
+  background-color: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(15px);
+  box-shadow: var(--shadow-lg);
+}
+
+.nav-container {
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 1rem;
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  text-decoration: none;
+  color: var(--primary);
+  font-family: "Cairo", sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.nav-links {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+}
+
+.nav-link {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: var(--border-radius);
+  position: relative;
+  overflow: hidden;
+}
+
+.nav-link::before {
+  content: '';
+  position: absolute;
+  right: 100%;
+  bottom: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--secondary);
+  transition: right 0.4s ease;
+}
+
+.nav-link:hover::before {
+  right: 0;
+}
+
+/* Hero Section Styles */
+.hero {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: var(--white);
+}
+
+.hero-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  padding: 2rem;
+  animation: 
+    fadeInUp 1.2s ease,
+    textShadow 3s infinite alternate;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes textShadow {
+  from {
+    text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  to {
+    text-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  }
+}
+
+/* Sections Common Styles */
+section {
+  opacity: 0;
+  transform: 
+    translateY(40px) 
+    perspective(1000px) 
+    rotateX(3deg);
+  transition: 
+    opacity 1s ease,
+    transform 1s cubic-bezier(0.215, 0.61, 0.355, 1),
+    filter 0.6s ease;
+  filter: blur(2px);
+}
+
+section.visible {
+  opacity: 1;
+  transform: 
+    translateY(0) 
+    rotateX(0);
+  filter: blur(0);
+}
+
+/* Cards Styles */
+.service-card,
+.book-card,
+.testimonial-card {
+  transition: 
+    transform 0.6s cubic-bezier(0.23, 1, 0.32, 1),
+    box-shadow 0.3s ease;
+}
+
+.service-card:hover {
+  transform: 
+    translateY(-10px) 
+    rotateZ(1deg) 
+    scale(1.02);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+}
+
+.book-card:hover {
+  transform: 
+    translateY(-8px) 
+    rotateX(5deg) 
+    rotateY(-2deg);
+}
+
+/* Image Hover Effects */
+.service-image img {
+  transition: 
+    transform 0.8s cubic-bezier(0.23, 1, 0.32, 1),
+    filter 0.4s ease;
+}
+
+.service-card:hover .service-image img {
+  transform: scale(1.15);
+  filter: brightness(1.1);
+}
+
+/* Form Interactions */
+.form-input,
+.form-textarea {
+  transition: 
+    border-color 0.3s ease,
+    box-shadow 0.3s ease,
+    transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.form-input:focus,
+.form-textarea:focus {
+  transform: scale(1.02);
+  box-shadow: 
+    0 0 0 3px rgba(139, 69, 19, 0.1),
+    0 4px 20px rgba(0,0,0,0.05);
+}
+
+/* Icon Animations */
+.feature-icon,
+.value-icon {
+  transition: transform 0.3s ease;
+}
+
+.feature-item:hover .feature-icon,
+.value-item:hover .value-icon {
+  transform: scale(1.2) rotate(10deg);
+}
+
+/* About Card Effects */
+.about-card {
+  perspective: 1000px;
+}
+
+.about-card:hover .about-card-icon {
+  transform: 
+    rotateY(180deg) 
+    scale(1.1);
+}
+
+.about-card-icon {
+  transition: transform 0.6s ease;
+}
+
+/* Scroll to Top Button */
+.scroll-to-top {
+  transition: 
+    transform 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55),
+    opacity 0.3s ease;
+  opacity: 0.9;
+}
+
+.scroll-to-top:hover {
+  transform: 
+    scale(1.1) 
+    rotate(360deg);
+  opacity: 1;
+}
+
+/* باقي أنماط الموقع بدون تغيير */
+/* ... (الأقسام الأخرى مثل about, services, books, etc.) ... */
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  :root {
+    --header-height: 70px;
+    --section-padding: 3rem;
+  }
+
+  .nav-links {
+    display: none;
+  }
+
+  .mobile-menu-button {
+    display: block;
+  }
+
+  section {
+    transform: 
+      translateY(30px) 
+      perspective(800px) 
+      rotateX(2deg);
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --header-height: 60px;
+  }
+}
